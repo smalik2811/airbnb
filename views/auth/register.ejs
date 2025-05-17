@@ -1,0 +1,179 @@
+<% firstName = typeof firstName !== 'undefined' ? firstName : '' %>
+<% lastName = typeof lastName !== 'undefined' ? lastName : '' %>
+<% email = typeof email !== 'undefined' ? email : '' %>
+<% role = typeof role !== 'undefined' ? role : '' %>
+
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body class="bg-gray-50">
+<%- include('../partials/NavBar') %>
+<main class="w-full py-8 px-4 sm:px-6 lg:px-8 min-h-screen flex items-start justify-center">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-md mx-auto border border-gray-100">
+
+        <h1 class="font-bold text-4xl text-center mb-6 text-red-600">
+            Create Account
+        </h1>
+
+        <p class="text-gray-500 text-center mb-8">Join our community to discover amazing places</p>
+
+        <form
+                action="/register"
+                method="POST"
+                class="flex flex-col gap-y-5 w-full mx-auto"
+        >
+            <%- include('../partials/formSubmissionErrors', {tips: "Need help? Make sure your passwords match and all required fields are completed."}) %>
+
+            <div class="relative">
+                <label for="firstName" class="text-sm font-medium text-gray-700 mb-1 block">First Name</label>
+                <input
+                        id="firstName"
+                        type="text"
+                        name="firstName"
+                        placeholder="Enter your first name"
+                        value="<%= firstName %>"
+                        class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                        required
+                />
+            </div>
+
+            <div class="relative">
+                <label for="lastName" class="text-sm font-medium text-gray-700 mb-1 block">Last Name</label>
+                <input
+                        id="lastName"
+                        type="text"
+                        name="lastName"
+                        placeholder="Enter your last name"
+                        value="<%= lastName %>"
+                        class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                />
+            </div>
+
+            <div class="relative">
+                <label for="email" class="text-sm font-medium text-gray-700 mb-1 block">Email Address</label>
+                <input
+                        id="email"
+                        type="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        value="<%= email %>"
+                        class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                        required
+                />
+            </div>
+
+            <div class="relative">
+                <label for="password" class="text-sm font-medium text-gray-700 mb-1 block">Password</label>
+                <input
+                        id="password"
+                        type="password"
+                        name="password"
+                        placeholder="Create a secure password"
+                        class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                        required
+                />
+            </div>
+
+            <div class="relative">
+                <label for="confirmPassword" class="text-sm font-medium text-gray-700 mb-1 block">Confirm
+                    Password</label>
+                <input
+                        id="confirmPassword"
+                        type="password"
+                        name="confirmPassword"
+                        placeholder="Confirm your password"
+                        class="w-full border border-gray-300 px-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                        required
+                />
+                <div class="mt-2 mb-2">
+                    <label class="text-sm font-medium text-gray-700 mb-3 block">Register as</label>
+
+                    <div class="grid grid-cols-2 gap-3 mt-2">
+                        <div class="relative">
+                            <input
+                                    type="radio"
+                                    name="role"
+                                    id="host"
+                                    value="host"
+                                    class="peer absolute opacity-0"
+                                    required
+                                    <%= role === "host" ? 'checked' : '' %>
+                            />
+                            <label for="host"
+                                   class="flex items-center justify-center p-3 text-gray-600 bg-white border border-gray-300 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-600 transition-all duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 20 20"
+                                     fill="currentColor">
+                                    <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+                                </svg>
+                                Host
+                            </label>
+                        </div>
+
+                        <div class="relative">
+                            <input
+                                    type="radio"
+                                    name="role"
+                                    id="guest"
+                                    value="guest"
+                                    class="peer absolute opacity-0"
+                                    <%= role === "guest" ? 'checked' : '' %>
+                            />
+                            <label for="guest"
+                                   class="flex items-center justify-center p-3 text-gray-600 bg-white border border-gray-300 rounded-lg cursor-pointer hover:border-red-500 hover:bg-red-50 peer-checked:border-red-500 peer-checked:bg-red-50 peer-checked:text-red-600 transition-all duration-200">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 20 20"
+                                     fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                                Guest
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="flex items-center mt-1">
+                    <input
+                            type="checkbox"
+                            name="terms"
+                            id="terms"
+                            class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+                            required
+                    />
+                    <label for="terms" class="ml-2 block text-sm text-gray-700">
+                        I agree to the <a href="#" class="text-red-600 hover:text-red-800 font-medium">Terms of
+                            Service</a> and <a href="#" class="text-red-600 hover:text-red-800 font-medium">Privacy
+                            Policy</a>
+                    </label>
+                </div>
+
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <button
+                            type="submit"
+                            class="w-full bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 text-white font-medium py-3 px-4 rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center"
+                    >
+                        <span class="mr-2">Create Account</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
+                                  clip-rule="evenodd"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="text-center mt-6">
+                    <p class="text-sm text-gray-600">
+                        Already have an account? <a href="/login" class="font-medium text-red-600 hover:text-red-800">Log
+                            in</a>
+                    </p>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<footer class="py-6 text-center text-gray-500 text-sm">
+    <p>© <%= new Date().getFullYear() %> Airbnb Clone. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

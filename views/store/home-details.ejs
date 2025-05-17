@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body class="bg-gray-50">
+<%- include('../partials/NavBar') %>
+<main class="w-full py-8 px-4 sm:px-6 lg:px-8 min-h-screen">
+    <div class="max-w-5xl mx-auto">
+        <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden">
+            <div class="relative">
+                <img
+                    src="<%= property.photo || 'https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' %>"
+                    class="w-full h-[400px] object-cover"
+                    alt="<%= property.houseName %>"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                    <h1 class="font-bold text-3xl md:text-4xl text-white mb-2 drop-shadow-sm">
+                        <%= property.houseName %>
+                    </h1>
+                    <div class="flex items-center text-white/90 mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-lg"><%= property.location %></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="p-6">
+                <div class="flex flex-col md:flex-row justify-between md:items-center mb-8 pb-6 border-b border-gray-200">
+                    <div class="flex items-baseline mb-4 md:mb-0">
+                        <span class="text-red-600 text-2xl font-bold mr-1">₹<%= property.pricePerNight %></span>
+                        <span class="text-gray-500">/ night</span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                        <%- include('../partials/favouriteButton', {property: property}) %>
+                        
+                        <a href="/reserve/<%= property._id %>" class="inline-flex items-center px-4 py-2 bg-red-600 hover:bg-red-700 text-white font-medium rounded-lg transition-all duration-200 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                            </svg>
+                            Reserve
+                        </a>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="md:col-span-2">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-4">About this place</h2>
+                        <p class="text-gray-600 mb-6">
+                            Experience the charm and comfort of this beautiful property in <%= property.location %>. Perfect for both short stays and longer visits, this accommodation offers everything you need for a memorable stay.
+                        </p>
+
+                        <h3 class="text-lg font-semibold text-gray-800 mb-3">Property highlights</h3>
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-2 mb-6">
+                            <li class="flex items-center text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                Great location
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                Dedicated workspace
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                Free parking
+                            </li>
+                            <li class="flex items-center text-gray-600">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                                </svg>
+                                Wifi
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-100">
+                        <h3 class="text-lg font-semibold text-gray-800 mb-4">Reserve your stay</h3>
+                        <div class="mb-4">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-600">₹<%= property.pricePerNight %> × 5 nights</span>
+                                <span class="text-gray-800">₹<%= property.pricePerNight * 5 %></span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-600">Cleaning fee</span>
+                                <span class="text-gray-800">₹500</span>
+                            </div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-gray-600">Service fee</span>
+                                <span class="text-gray-800">₹<%= Math.round(property.pricePerNight * 0.1) %></span>
+                            </div>
+                        </div>
+                        <div class="border-t border-gray-200 pt-4 mb-4">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold">Total</span>
+                                <span class="font-semibold">₹<%= (property.pricePerNight * 5) + 500 + Math.round(property.pricePerNight * 0.1) %></span>
+                            </div>
+                        </div>
+                        <a href="/reserve/<%= property._id %>" class="block w-full text-center bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-4 rounded-lg transition-all duration-200 shadow-sm">
+                            Reserve
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer class="py-6 text-center text-gray-500 text-sm">
+    <p>© <%= new Date().getFullYear() %> Airbnb Clone. All rights reserved.</p>
+</footer>
+</body>
+</html>

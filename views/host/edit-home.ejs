@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('../partials/head') %>
+<body class="bg-gray-50">
+<%- include('../partials/NavBar') %>
+<main class="w-full py-8 px-4 sm:px-6 lg:px-8 min-h-screen flex items-start justify-center">
+
+    <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl mx-auto border border-gray-100">
+
+        <div class="mb-8 text-center">
+            <h1 class="font-bold text-4xl text-center mb-3 text-red-600">
+                <%= editing ? 'Edit Home Details' : 'List Your Property' %>
+            </h1>
+            
+            <p class="text-gray-500">
+                <%= editing ? 'Update your property information below' : 'Share your space and start earning' %>
+            </p>
+        </div>
+
+        <form
+                action="<%= editing ? '/host/edit-home' : '/host/add-home' %>"
+                method="POST"
+                class="flex flex-col gap-y-6 w-full mx-auto"
+        >            <input
+                    type="hidden"
+                    name="id"
+                    value="<%= editing ? property._id : '' %>"
+            />
+            
+            <div class="relative">
+                <label for="houseName" class="text-sm font-medium text-gray-700 mb-1 block">Property Name</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                        </svg>
+                    </div>
+                    <input
+                        id="houseName"
+                        type="text"
+                        name="houseName"
+                        placeholder="E.g., Cozy Beach House, Modern Downtown Apartment"
+                        value="<%= editing ? property.houseName : '' %>"
+                        class="w-full border border-gray-300 pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                        required
+                    />
+                </div>
+                <p class="mt-1 text-xs text-gray-500">Choose a catchy name that highlights your property's best features</p>
+            </div>
+            
+            <div class="relative">
+                <label for="pricePerNight" class="text-sm font-medium text-gray-700 mb-1 block">Price per Night</label>
+                <div class="relative mt-1 rounded-md shadow-sm">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input
+                        id="pricePerNight"
+                        type="number"
+                        name="pricePerNight"
+                        placeholder="100"
+                        value="<%= editing ? property.pricePerNight : '' %>"
+                        class="w-full border border-gray-300 pl-7 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                        min="100"
+                        required
+                    />
+                </div>
+                <p class="mt-1 text-xs text-gray-500">Minimum price is $100 per night</p>
+            </div>
+            
+            <div class="relative">
+                <label for="location" class="text-sm font-medium text-gray-700 mb-1 block">Location</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input
+                        id="location"
+                        type="text"
+                        name="location"
+                        placeholder="E.g., New York, NY or London, UK"
+                        value="<%= editing ? property.location : '' %>"
+                        class="w-full border border-gray-300 pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                        required
+                    />
+                </div>
+                <p class="mt-1 text-xs text-gray-500">Enter the city and country/state of your property</p>
+            </div>
+            
+            <div class="relative">
+                <label for="photo" class="text-sm font-medium text-gray-700 mb-1 block">Property Photo URL</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input
+                        id="photo"
+                        type="url"
+                        name="photo"
+                        placeholder="https://example.com/your-property-image.jpg"
+                        value="<%= editing ? property.photo : '' %>"
+                        class="w-full border border-gray-300 pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                    />
+                </div>
+                <p class="mt-1 text-xs text-gray-500">Add a link to a high-quality image of your property</p>
+            </div>
+            
+            <div class="mt-6 pt-4 border-t border-gray-200">
+                <button
+                    type="submit"
+                    class="w-full bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 text-white font-medium py-3 px-4 rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center"
+                >
+                    <%= editing ? 'Update Property' : 'List Property' %>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
+                    </svg>
+                </button>
+            </div>        </form>
+        
+        <% if (!editing) { %>
+        <div class="mt-8">
+            <div class="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">Listing Tips</h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <ul class="list-disc pl-5 space-y-1">
+                                <li>High-quality photos increase booking rates by up to 40%</li>
+                                <li>Properties with detailed descriptions receive more inquiries</li>
+                                <li>Setting a competitive price can help your listing stand out</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% } %>
+    </div>
+</main>
+
+<footer class="py-6 text-center text-gray-500 text-sm">
+    <p>© <%= new Date().getFullYear() %> Airbnb Clone. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
