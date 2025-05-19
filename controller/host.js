@@ -1,4 +1,9 @@
+const fs = require("fs");
+const path = require("path");
+const mongoose = require("mongoose");
+
 const Home = require("../model/Home");
+const mainPath = require("../utils/pathUtil");
 
 exports.getAddHome = (req, res) => {
     res.render("./host/edit-home", {
@@ -11,7 +16,8 @@ exports.getAddHome = (req, res) => {
 };
 
 exports.postAddHome = (req, res) => {
-    const {id, houseName, pricePerNight, location, photo} = req.body;
+    const {houseName, pricePerNight, location} = req.body;
+    const photo = req.file ? req.file.path : null;
 
     const home = new Home({
         houseName: houseName,
@@ -82,7 +88,7 @@ exports.getEditHome = (req, res) => {
 }
 
 exports.postEditHome = (req, res) => {
-    const {id, houseName, pricePerNight, location, photo} = req.body;
+    const {id, houseName, pricePerNight, location} = req.body;
 
     Home.findById(id)
         .then(home => {
@@ -90,7 +96,19 @@ exports.postEditHome = (req, res) => {
                 home.houseName = houseName;
                 home.pricePerNight = Number(pricePerNight);
                 home.location = location;
-                home.photo = photo;
+
+                if (req.file) {
+                    const existingFile = home.photo
+                    const fullPath = path.join(mainPath, existingFile)
+                    const doesFileExist = fs.existsSync(fullPath)
+
+                    if (doesFileExist) {
+                        fs.unlinkSync(fullPath)
+                    }
+
+                    home.photo = req.file.path;
+                }
+
                 return home.save()
                     .then(() => {
                         console.log("Home updated successfully")
@@ -110,18 +128,30 @@ exports.postEditHome = (req, res) => {
         })
 }
 
-exports.deleteHome = (req, res) => {
-    const homeId = req.params["homeId"]
+exports.deleteHome = async (req, res) => {
+    try {
+        const homeId = req.params["homeId"];
+        const home = await Home.findById(homeId);
 
-    Home.findByIdAndDelete(homeId)
-        .then(() => {
-            console.log("Home deleted successfully")
-        })
-        .catch(err => {
-            console.log("Error while deleting home", err["errorResponse"])
-        })
-        .finally(() => {
-                res.redirect("/host/homes")
+        if (!home) {
+            console.log("Home not found");
+            return res.redirect("/host/homes");
+        }
+
+        // Delete the home from database
+        await Home.findByIdAndDelete(homeId);
+        console.log("Home deleted successfully");
+
+        // Delete the associated photo if it exists
+        if (home.photo) {
+            const fullPath = path.join(mainPath, home.photo);
+            if (fs.existsSync(fullPath)) {
+                fs.unlinkSync(fullPath);
             }
-        )
-}
+        }
+    } catch (err) {
+        console.log("Error while deleting home", err["errorResponse"] || err);
+    } finally {
+        res.redirect("/host/homes");
+    }
+};

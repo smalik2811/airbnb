@@ -89,6 +89,7 @@ out/
 .temp/
 .grunt
 /public/output.css
+/uploads
 
 .lock-wscript
 .fusebox/

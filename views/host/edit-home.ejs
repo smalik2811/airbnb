@@ -11,43 +11,45 @@
             <h1 class="font-bold text-4xl text-center mb-3 text-red-600">
                 <%= editing ? 'Edit Home Details' : 'List Your Property' %>
             </h1>
-            
+
             <p class="text-gray-500">
                 <%= editing ? 'Update your property information below' : 'Share your space and start earning' %>
             </p>
         </div>
-
         <form
                 action="<%= editing ? '/host/edit-home' : '/host/add-home' %>"
                 method="POST"
+                enctype="multipart/form-data"
                 class="flex flex-col gap-y-6 w-full mx-auto"
-        >            <input
+        ><input
                     type="hidden"
                     name="id"
                     value="<%= editing ? property._id : '' %>"
             />
-            
+
             <div class="relative">
                 <label for="houseName" class="text-sm font-medium text-gray-700 mb-1 block">Property Name</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
                         </svg>
                     </div>
                     <input
-                        id="houseName"
-                        type="text"
-                        name="houseName"
-                        placeholder="E.g., Cozy Beach House, Modern Downtown Apartment"
-                        value="<%= editing ? property.houseName : '' %>"
-                        class="w-full border border-gray-300 pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
-                        required
+                            id="houseName"
+                            type="text"
+                            name="houseName"
+                            placeholder="E.g., Cozy Beach House, Modern Downtown Apartment"
+                            value="<%= editing ? property.houseName : '' %>"
+                            class="w-full border border-gray-300 pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                            required
                     />
                 </div>
-                <p class="mt-1 text-xs text-gray-500">Choose a catchy name that highlights your property's best features</p>
+                <p class="mt-1 text-xs text-gray-500">Choose a catchy name that highlights your property's best
+                    features</p>
             </div>
-            
+
             <div class="relative">
                 <label for="pricePerNight" class="text-sm font-medium text-gray-700 mb-1 block">Price per Night</label>
                 <div class="relative mt-1 rounded-md shadow-sm">
@@ -55,94 +57,210 @@
                         <span class="text-gray-500 sm:text-sm">$</span>
                     </div>
                     <input
-                        id="pricePerNight"
-                        type="number"
-                        name="pricePerNight"
-                        placeholder="100"
-                        value="<%= editing ? property.pricePerNight : '' %>"
-                        class="w-full border border-gray-300 pl-7 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
-                        min="100"
-                        required
+                            id="pricePerNight"
+                            type="number"
+                            name="pricePerNight"
+                            placeholder="100"
+                            value="<%= editing ? property.pricePerNight : '' %>"
+                            class="w-full border border-gray-300 pl-7 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                            min="100"
+                            required
                     />
                 </div>
                 <p class="mt-1 text-xs text-gray-500">Minimum price is $100 per night</p>
             </div>
-            
+
             <div class="relative">
                 <label for="location" class="text-sm font-medium text-gray-700 mb-1 block">Location</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20"
+                             fill="currentColor">
+                            <path fill-rule="evenodd"
+                                  d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
+                                  clip-rule="evenodd"/>
                         </svg>
                     </div>
                     <input
-                        id="location"
-                        type="text"
-                        name="location"
-                        placeholder="E.g., New York, NY or London, UK"
-                        value="<%= editing ? property.location : '' %>"
-                        class="w-full border border-gray-300 pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
-                        required
+                            id="location"
+                            type="text"
+                            name="location"
+                            placeholder="E.g., New York, NY or London, UK"
+                            value="<%= editing ? property.location : '' %>"
+                            class="w-full border border-gray-300 pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
+                            required
                     />
                 </div>
                 <p class="mt-1 text-xs text-gray-500">Enter the city and country/state of your property</p>
-            </div>
-            
-            <div class="relative">
-                <label for="photo" class="text-sm font-medium text-gray-700 mb-1 block">Property Photo URL</label>
-                <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                            <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
-                        </svg>
+            </div>            <div class="relative">
+                <label for="photo" class="text-sm font-medium text-gray-700 mb-1 block">Property Photo</label>
+
+                <label for="photo"
+                       class="relative mt-1 flex flex-col justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg group cursor-pointer transition-all duration-300 hover:border-red-400 hover:bg-gray-50 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-red-400">
+                    <div class="space-y-2 text-center">
+                        <!-- Main upload icon with animation -->
+                        <div class="mx-auto h-14 w-14 text-gray-400 group-hover:text-red-500 transition-colors duration-300">
+                            <svg class="h-full w-full transform transition-transform group-hover:scale-110 duration-300" stroke="currentColor" fill="none"
+                                 viewBox="0 0 48 48" aria-hidden="true">
+                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                                      stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+
+                        <!-- Upload text with enhanced styling -->
+                        <div class="flex flex-col items-center text-sm">
+                            <p class="font-medium">
+                                <span class="text-red-600 group-hover:text-red-700 transition-colors">Click to upload</span>
+                                <span class="text-gray-600"> or drag and drop</span>
+                            </p>
+                            <p class="text-gray-500 text-xs mt-1">High-quality images increase booking rates</p>
+                            
+                            <!-- File input (hidden) -->
+                            <input
+                                    id="photo"
+                                    name="photo"
+                                    type="file"
+                                    accept="image/png, image/jpeg, image/jpg, image/webp"
+                                    class="sr-only"
+                                    <%= editing ? '' : 'required' %>
+                            />
+                        </div>
+                        
+                        <!-- File type badges -->
+                        <div class="flex justify-center space-x-2 pt-2">
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-[10px] font-medium rounded-md">PNG</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-[10px] font-medium rounded-md">JPEG</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-[10px] font-medium rounded-md">JPG</span>
+                            <span class="px-2 py-1 bg-gray-100 text-gray-700 text-[10px] font-medium rounded-md">WEBP</span>
+                        </div>
+                        
+                        <!-- File size limit with visual indicator -->
+                        <div class="flex items-center justify-center mt-1">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                            </svg>
+                            <p class="ml-1 text-[10px] text-gray-500">Up to 10MB per file</p>
+                        </div>
                     </div>
-                    <input
-                        id="photo"
-                        type="url"
-                        name="photo"
-                        placeholder="https://example.com/your-property-image.jpg"
-                        value="<%= editing ? property.photo : '' %>"
-                        class="w-full border border-gray-300 pl-10 pr-4 py-3 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500 transition-all duration-200 bg-white"
-                    />
-                </div>
-                <p class="mt-1 text-xs text-gray-500">Add a link to a high-quality image of your property</p>
-            </div>
-            
-            <div class="mt-6 pt-4 border-t border-gray-200">
-                <button
-                    type="submit"
-                    class="w-full bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 text-white font-medium py-3 px-4 rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center"
-                >
-                    <%= editing ? 'Update Property' : 'List Property' %>
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z" clip-rule="evenodd" />
-                    </svg>
-                </button>
-            </div>        </form>
-        
-        <% if (!editing) { %>
-        <div class="mt-8">
-            <div class="bg-blue-50 rounded-lg p-4 border border-blue-100">
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <svg class="h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                    
+                    <!-- Visual affordance for drag effect -->
+                    <div class="absolute inset-0 border-2 border-transparent group-hover:border-red-300 rounded-lg pointer-events-none"></div>
+                </label>
+
+                <% if (editing && property.photo) { %>
+                    <div class="mt-5 border-t border-gray-200 pt-5">
+                        <div class="flex items-center justify-between mb-3">
+                            <p class="text-sm font-medium text-gray-700">Current photo:</p>
+                            <span class="px-2.5 py-0.5 bg-green-50 text-green-700 text-xs font-medium rounded-full flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5 mr-1" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                </svg>
+                                Active
+                            </span>
+                        </div>
+                          <div class="relative w-full max-w-md mx-auto group">
+                            <div class="aspect-w-16 aspect-h-12 overflow-hidden rounded-lg shadow-lg border border-gray-100 transition-all duration-300 group-hover:shadow-xl">
+                                <img
+                                    id="propertyImage"
+                                    src="<%= property.photo %>"
+                                    alt="<%= property.houseName %>"
+                                    class="object-cover w-full h-full transition-all duration-500 group-hover:scale-105"
+                                />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                            </div>
+                            
+                            <div class="absolute top-3 right-3 flex space-x-2">
+                                <span class="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-sm hover:bg-white transition-colors duration-200 cursor-pointer" title="Image details">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z" clip-rule="evenodd" />
+                                    </svg>
+                                </span>                                <span id="fullscreenBtn" class="bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-sm hover:bg-white transition-colors duration-200 cursor-pointer" title="Preview in fullscreen">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5 text-blue-500" viewBox="0 0 20 20" fill="currentColor">
+                                        <path d="M3 4a1 1 0 011-1h4a1 1 0 010 2H6.414l2.293 2.293a1 1 0 11-1.414 1.414L5 6.414V8a1 1 0 01-2 0V4zm9 1a1 1 0 010-2h4a1 1 0 011 1v4a1 1 0 01-2 0V6.414l-2.293 2.293a1 1 0 11-1.414-1.414L13.586 5H12zm-9 7a1 1 0 012 0v1.586l2.293-2.293a1 1 0 111.414 1.414L6.414 15H8a1 1 0 010 2H4a1 1 0 01-1-1v-4zm13-1a1 1 0 011 1v4a1 1 0 01-1 1h-4a1 1 0 010-2h1.586l-2.293-2.293a1 1 0 111.414-1.414L15 13.586V12a1 1 0 011-1z" />
+                                    </svg>
+                                </span>
+                            </div>
+                            
+                            <div class="absolute bottom-0 left-0 right-0 p-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                <div class="bg-white/90 backdrop-blur-md rounded-lg px-3 py-2 shadow-lg">
+                                    <div class="flex items-center justify-between">
+                                        <div class="truncate">
+                                            <p class="text-sm font-medium text-gray-800 truncate"><%= property.houseName %></p>
+                                            <p class="text-xs text-gray-500 mt-0.5">Click on upload area to replace</p>
+                                        </div>
+                                        <div class="ml-3">
+                                            <div class="bg-red-50 rounded-md p-1 hover:bg-red-100 transition-colors duration-200">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M4 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm5 4a1 1 0 00-1 1v3a1 1 0 102 0v-3a1 1 0 00-1-1zm-2-3a1 1 0 11-2 0 1 1 0 012 0zm6 0a1 1 0 11-2 0 1 1 0 012 0z" clip-rule="evenodd" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center mt-4 space-x-1">
+                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                            <p class="text-sm text-gray-600">Upload a new photo to replace the current one</p>
+                        </div>
+                    </div>
+                <% } %>
+
+                <div class="mt-3">
+                    <div class="flex items-center mb-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 mr-1.5" viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
                         </svg>
+                        <p class="text-xs font-medium text-gray-700">Photo Tips for Maximum Appeal</p>
                     </div>
-                    <div class="ml-3">
-                        <h3 class="text-sm font-medium text-blue-800">Listing Tips</h3>
-                        <div class="mt-2 text-sm text-blue-700">
-                            <ul class="list-disc pl-5 space-y-1">
-                                <li>High-quality photos increase booking rates by up to 40%</li>
-                                <li>Properties with detailed descriptions receive more inquiries</li>
-                                <li>Setting a competitive price can help your listing stand out</li>
-                            </ul>
+                    <ul class="text-xs text-gray-500 space-y-1 pl-5 list-disc">
+                        <li>Use high-resolution, well-lit images that showcase your property's best features</li>
+                        <li>Include photos of all main rooms (bedroom, bathroom, kitchen, living area)</li>
+                        <li>Add images of special amenities that make your property unique</li>
+                    </ul>
+                </div>
+            </div>
+
+            <button
+                type="submit"
+                class="w-full bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 text-white font-medium py-3 px-4 rounded-lg shadow-sm transition-all duration-200 flex items-center justify-center"
+            >
+                <%= editing ? 'Update Property' : 'List Property' %>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 ml-2" viewBox="0 0 20 20"
+                        fill="currentColor">
+                    <path fill-rule="evenodd"
+                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-8.707l-3-3a1 1 0 00-1.414 1.414L10.586 9H7a1 1 0 100 2h3.586l-1.293 1.293a1 1 0 101.414 1.414l3-3a1 1 0 000-1.414z"
+                            clip-rule="evenodd"/>
+                </svg>
+            </button>
+        </form>
+
+        <% if (!editing) { %>
+            <div class="mt-8">
+                <div class="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
+                                 fill="currentColor">
+                                <path fill-rule="evenodd"
+                                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">Listing Tips</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <ul class="list-disc pl-5 space-y-1">
+                                    <li>High-quality photos increase booking rates by up to 40%</li>
+                                    <li>Properties with detailed descriptions receive more inquiries</li>
+                                    <li>Setting a competitive price can help your listing stand out</li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         <% } %>
     </div>
 </main>
@@ -150,6 +268,133 @@
 <footer class="py-6 text-center text-gray-500 text-sm">
     <p>© <%= new Date().getFullYear() %> Airbnb Clone. All rights reserved.</p>
 </footer>
+
+<!-- Fullscreen Image Modal -->
+<div id="fullscreenModal" class="fixed inset-0 bg-black/90 z-50 hidden">
+    <div class="relative w-full max-w-6xl mx-auto px-4 flex items-center justify-center h-full">">
+        <!-- Close button -->
+        <button id="closeFullscreenBtn" class="absolute top-4 right-4 text-white hover:text-gray-300 transition-colors z-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+        
+        <!-- Image container -->
+        <div class="relative">
+            <img id="fullscreenImage" src="" alt="Property Image" class="mx-auto max-h-[85vh] max-w-full rounded-lg shadow-2xl" />
+            
+            <!-- Property name caption -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white/80 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg">
+                <p id="fullscreenCaption" class="text-gray-800 font-medium text-sm"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Handle fullscreen preview functionality
+    document.addEventListener('DOMContentLoaded', function() {
+        const fullscreenBtn = document.getElementById('fullscreenBtn');
+        const previewFullscreenBtn = document.getElementById('previewFullscreenBtn');
+        const fullscreenModal = document.getElementById('fullscreenModal');
+        const fullscreenImage = document.getElementById('fullscreenImage');
+        const fullscreenCaption = document.getElementById('fullscreenCaption');
+        const closeFullscreenBtn = document.getElementById('closeFullscreenBtn');
+        const propertyImage = document.getElementById('propertyImage');
+        const previewImage = document.getElementById('previewImage');
+        
+        // Function to open fullscreen preview
+        function openFullscreenPreview(imgElement, captionText) {
+            if (imgElement && fullscreenModal) {
+                // Get image source 
+                const imageSrc = imgElement.getAttribute('src');
+                
+                // Set modal content
+                fullscreenImage.setAttribute('src', imageSrc);
+                fullscreenCaption.textContent = captionText || imgElement.getAttribute('alt');
+                
+                // Show modal
+                fullscreenModal.style.display = 'flex';
+                
+                // Prevent scrolling of the page when modal is open
+                document.body.style.overflow = 'hidden';
+            }
+        }
+        
+        // Handle existing property image preview
+        if (fullscreenBtn && propertyImage) {
+            fullscreenBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openFullscreenPreview(propertyImage, propertyImage.getAttribute('alt'));
+            });
+        }
+        
+        // Handle new property image preview
+        if (previewFullscreenBtn && previewImage) {
+            previewFullscreenBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                openFullscreenPreview(previewImage, 'Property Preview');
+            });
+        }
+            
+        // Close fullscreen preview when close button is clicked
+        if (closeFullscreenBtn) {
+            closeFullscreenBtn.addEventListener('click', function() {
+                closeFullscreenModal();
+            });
+        }
+        
+        // Close fullscreen preview when clicking outside the image
+        if (fullscreenModal) {
+            fullscreenModal.addEventListener('click', function(e) {
+                if (e.target === fullscreenModal) {
+                    closeFullscreenModal();
+                }
+            });
+        }
+        
+        // Close fullscreen preview when ESC key is pressed
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && fullscreenModal && fullscreenModal.style.display === 'flex') {
+                closeFullscreenModal();
+            }
+        });
+        
+        // Function to close the modal
+        function closeFullscreenModal() {
+            if (fullscreenModal) {
+                fullscreenModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+        }
+    });
+    
+    // Handle image preview when a file is selected
+    function previewImage(input) {
+        const previewContainer = document.getElementById('newImagePreview');
+        const previewImg = document.getElementById('previewImage');
+        
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
+            
+            reader.onload = function(e) {
+                // Update the image source
+                previewImg.src = e.target.result;
+                
+                // Show the preview container
+                previewContainer.classList.remove('hidden');
+                
+                // Get the file name without extension for the image alt text
+                const fileName = input.files[0].name.split('.').slice(0, -1).join('.');
+                previewImg.alt = fileName || 'Property Image';
+            };
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
 
 </body>
 </html>
